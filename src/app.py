@@ -224,7 +224,8 @@ def login(credentials: AccountCredentials, response: Response):
 
 
 @app.get("/session")
-def get_session(request: Request):
+def get_session(request: Request, response: Response):
+    response.headers["Cache-Control"] = "no-store"
     token = request.cookies.get(SESSION_COOKIE)
     email = sessions.get(token) if token else None
     return {"authenticated": email is not None, "email": email}
@@ -289,7 +290,11 @@ def reset_password(password_reset: PasswordReset):
 
 
 @app.get("/me")
-def get_dashboard(email: str = Depends(get_current_student)):
+def get_dashboard(
+    response: Response,
+    email: str = Depends(get_current_student),
+):
+    response.headers["Cache-Control"] = "no-store"
     registrations = [
         {
             "name": name,
