@@ -8,36 +8,105 @@
   </head>
   <body>
     <header>
-      <h1>Mergington High School</h1>
-      <h2>Extracurricular Activities</h2>
+      <div>
+        <h1>Mergington High School</h1>
+        <h2>Extracurricular Activities</h2>
+      </div>
+      <div id="session-controls" class="hidden">
+        <span id="session-email"></span>
+        <button id="logout-button" type="button" class="secondary">Sign Out</button>
+      </div>
     </header>
 
     <main>
+      <section id="account-container">
+        <h3>Student Account</h3>
+        <div id="guest-controls">
+          <div class="tab-list" role="tablist" aria-label="Account options">
+            <button type="button" class="tab active" data-form="login-form">Sign In</button>
+            <button type="button" class="tab" data-form="register-form">Create Account</button>
+            <button type="button" class="tab" data-form="reset-form">Reset Password</button>
+          </div>
+
+          <form id="login-form" class="account-form">
+            <div class="form-group">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" required autocomplete="current-password" />
+            </div>
+            <button type="submit">Sign In</button>
+          </form>
+
+          <form id="register-form" class="account-form hidden">
+            <div class="form-group">
+              <label for="register-email">Email</label>
+              <input type="email" id="register-email" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input type="password" id="register-password" required minlength="8" autocomplete="new-password" />
+            </div>
+            <button type="submit">Create Account</button>
+          </form>
+
+          <form id="reset-form" class="account-form hidden">
+            <div class="form-group">
+              <label for="reset-email">Email</label>
+              <input type="email" id="reset-email" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="recovery-code">Recovery Code</label>
+              <input type="text" id="recovery-code" required autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label for="reset-password">New Password</label>
+              <input type="password" id="reset-password" required minlength="8" autocomplete="new-password" />
+            </div>
+            <button type="submit">Reset Password</button>
+          </form>
+        </div>
+
+        <form id="change-password-form" class="hidden">
+          <h4>Change Password</h4>
+          <div class="form-group">
+            <label for="current-password">Current Password</label>
+            <input type="password" id="current-password" required autocomplete="current-password" />
+          </div>
+          <div class="form-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" required minlength="8" autocomplete="new-password" />
+          </div>
+          <button type="submit">Change Password</button>
+        </form>
+        <div id="message" class="hidden" role="status" aria-live="polite"></div>
+      </section>
+
       <section id="activities-container">
         <h3>Available Activities</h3>
         <div id="activities-list">
-          <!-- Activities will be loaded here -->
           <p>Loading activities...</p>
         </div>
       </section>
 
-      <section id="signup-container">
-        <h3>Sign Up for an Activity</h3>
+      <section id="student-container" class="hidden">
+        <h3>My Activities</h3>
+        <div id="registrations-list">
+          <p>Loading your activities...</p>
+        </div>
+
         <form id="signup-form">
+          <h4>Join Another Activity</h4>
           <div class="form-group">
-            <label for="email">Student Email:</label>
-            <input type="email" id="email" required placeholder="your-email@mergington.edu" />
-          </div>
-          <div class="form-group">
-            <label for="activity">Select Activity:</label>
+            <label for="activity">Activity</label>
             <select id="activity" required>
               <option value="">-- Select an activity --</option>
-              <!-- Activity options will be loaded here -->
             </select>
           </div>
-          <button type="submit">Sign Up</button>
+          <button type="submit">Join Activity</button>
         </form>
-        <div id="message" class="hidden"></div>
       </section>
     </main>
 
