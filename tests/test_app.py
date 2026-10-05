@@ -100,3 +100,19 @@ def test_student_cannot_cancel_another_students_registration():
 
     assert response.status_code == 400
     assert "other.student@mergington.edu" in activities["Chess Club"]["participants"]
+
+
+def test_logout_invalidates_the_current_session():
+    assert create_account().status_code == 201
+    assert login().status_code == 200
+    dashboard = client.get("/me")
+
+    logout = client.delete("/sessions/current")
+    session = client.get("/session")
+
+    assert dashboard.status_code == 200
+    assert dashboard.headers["cache-control"] == "no-store"
+    assert logout.status_code == 200
+    assert session.headers["cache-control"] == "no-store"
+    assert session.json() == {"authenticated": False, "email": None}
+    assert client.get("/me").status_code == 401
